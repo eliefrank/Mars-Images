@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="js/myfunctions.js"></script>
+    <title>Mars Images</title>
+</head>
+<body>
+    <div class="container-fluid" id="htmlBody">
+        <div class="row">
+            <div class="col">
+                <div class="container my-5">
+                    <div class="bg-image p-5 mb-5" style="background-image: url('images/nasa.jpg');">
+                        <div class="d-flex justify-content-center text-center">
+                            <div class="bg-white p-3">
+                                <h2>Mars images browser</h2>
+                                <p>Browse NASA Mars images and save your preferred ones.</p>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#whomIModal">whom am i</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row d-none" id="loadingImg">
+            <div class="col position-relative">
+                <img class="position-absolute top-50 start-50 translate-middle" src='images/loading-buffering.gif' alt="...">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="bg-info p-2 text-dark bg-opacity-25 rounded mb-3"><h3><b>Search for images:</b></h3></div>
+                <form id="searchForm">
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <label for="dateOrSol">Date (YYYY-MM-DD) or Sol</label>
+                            <input type="text" class="form-control" id="dateOrSol" name="dateOrSol">
+                            <div class="text-danger errormessage"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="rover">Select Rover:</label>
+                            <select class="form-select" id="rover" name="rover" aria-label="Default select example">
+                                <option selected value="">Choose a rover</option>
+                                <option value="Curiosity">Curiosity</option>
+                                <option value="Opportunity">Opportunity</option>
+                                <option value="Spirit">Spirit</option>
+                            </select>
+                            <div class="text-danger errormessage"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="dateOrSol">Select Camera:</label>
+                            <select class="form-select" id="camera" name="camera" aria-label="Default select example">
+                                <option selected value="">Choose a camera</option>
+                                <option value="FHAZ">FHAZ</option>
+                                <option value="RHAZ">RHAZ</option>
+                                <option value="MAST">MAST</option>
+                                <option value="CHEMCAM">CHEMCAM</option>
+                                <option value="MAHLI">MAHLI</option>
+                                <option value="MARDI">MARDI</option>
+                                <option value="NAVCAM">NAVCAM</option>
+                                <option value="PANCAM">PANCAM</option>
+                                <option value="MINITES">MINITES</option>
+                            </select>
+                            <div class="text-danger errormessage"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="search" class="btn btn-outline-info mb-3 disabled">search</button>
+                    <button type="reset" class="btn btn-outline-info mb-3">clear</button>
+                </form>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="bg-primary p-2 text-primary bg-opacity-25 rounded mb-3"><h3><b>Saved Images</b></h3></div>
+                <button class="btn btn-outline-primary" type="button" id="start-slide">Start slide show</button>
+                <button class="btn btn-outline-primary" type="button" id="stop-slide">Stop slide show</button>
+                <ol id="savedImagesList">
+                </ol>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-center">
+                    <div id="carousel" class="carousel" data-bs-ride="carousel">
+                        <div class="carousel-inner"></div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="bg-info p-2 text-dark bg-opacity-25 rounded mb-3"><h3><b>search results:</b></h3></div>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-3" id="searchResults"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- whom am i Modal -->
+    <div class="modal fade" id="whomIModal" tabindex="-1" aria-labelledby="whomIModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-info p-3 text-white">
+                    <h5 class="modal-title" id="whomIModalLabel">Who am I</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Name: Elie Frankenhuis</p>
+                    <p>Email: eliezerfr@edu.hac.ac.il</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button to saved modal -->
+    <button type="button" class="d-none" id="btnSavedModal" data-bs-toggle="modal" data-bs-target="#savedModal"></button>
+
+    <!-- saved Modal -->
+    <div class="modal fade" id="savedModal" tabindex="-1" aria-labelledby="savedModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-info p-3 text-white">
+                    <h5 class="modal-title" id="savedModalLabel">Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>The image is already saved.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</body>
+</html>
